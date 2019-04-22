@@ -1,6 +1,6 @@
 # Next.JS Web Admin Layout with Ant Design
 
-[Imgur](https://i.imgur.com/tAqMo6w.png)
+![screenshot](https://i.imgur.com/tAqMo6w.png)
 
 ## How I Bootstrapped the Project
 
