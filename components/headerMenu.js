@@ -4,7 +4,7 @@ import {
 
 class HeaderMenu extends React.Component {
   state = {
-    username: 'Wisu'
+    username: 'Username'
   };
 
   componentDidMount = () => {
