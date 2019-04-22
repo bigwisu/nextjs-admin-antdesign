@@ -6,7 +6,7 @@
 
 ### Using `create-next-app`
 
-Execute [`create-next-app`](https://github.com/segmentio/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) with the following command:
+Execute [`create-next-app`](https://github.com/segmentio/create-next-app) with [yarn](https://yarnpkg.com/lang/en/docs/cli/create/) using the following command:
 
 ```bash
 yarn create next-app --example with-ant-design-less with-ant-design-app
@@ -14,11 +14,11 @@ yarn create next-app --example with-ant-design-less with-ant-design-app
 
 ### Layouting
 
-Implement Ant Design ['layout sider demo'](https://ant.design/components/layout/#components-layout-demo-side) into the Next.JS directory structure created.
+Implement Ant Design [layout sider demo](https://ant.design/components/layout/#components-layout-demo-side) into the Next.JS directory structure created.
 
 ### Demo
 
-Deployed on ['Heroku'](nextjs-admin-antdesign.herokuapp.com)
+Deployed on [Heroku](https://nextjs-admin-antdesign.herokuapp.com)
 
 ### License
 
