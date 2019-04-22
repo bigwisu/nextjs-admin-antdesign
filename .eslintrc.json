@@ -1,0 +1,33 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": ["airbnb", "eslint:recommended"],
+    "parserOptions": {
+        "ecmaVersion": 2016
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": "error",
+        "comma-dangle": "off",
+        "react/jsx-filename-extension": 0,
+        "react/react-in-jsx-scope ": 0
+    }
+}
