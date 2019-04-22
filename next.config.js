@@ -15,6 +15,9 @@ if (typeof require !== 'undefined') {
 }
 
 module.exports = withLess({
+  options: {
+    dist: '.next'
+  },
   lessLoaderOptions: {
     javascriptEnabled: true,
     modifyVars: themeVariables // make your antd custom effective
