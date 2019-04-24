@@ -2,6 +2,13 @@ import {
   Layout, Menu, Icon
 } from 'antd';
 
+import Amplify, { Auth } from 'aws-amplify';
+import CognitoConfig from '../configs/cognito';
+
+Amplify.configure(CognitoConfig);
+
+import Router from 'next/router';
+
 class HeaderMenu extends React.Component {
   state = {
     username: 'Username'
@@ -9,6 +16,18 @@ class HeaderMenu extends React.Component {
 
   componentDidMount = () => {
     console.log('USERMENU LOADED')
+  }
+
+  handleLogOut = () => {
+    Auth.signOut()
+      .then(() => {
+        Router.push('/login')
+      })
+      .catch((response) => {
+        if (response.message){
+          console.log(response.message)
+        }
+      })
   }
 
   render() {
@@ -25,7 +44,7 @@ class HeaderMenu extends React.Component {
               justifyContent:"space-around",
               alignItems:'center'
             }}>
-            <Menu.Item>
+            <Menu.Item onClick={() => this.handleLogOut()} >
               <Icon type="logout" />
               <span>Logout</span>
             </Menu.Item>
