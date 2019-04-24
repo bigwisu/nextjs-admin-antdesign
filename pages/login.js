@@ -6,28 +6,59 @@ import {
   Checkbox
 } from 'antd';
 
+import Router from 'next/router';
+
+import Amplify, { Auth } from 'aws-amplify';
+import CognitoConfig from '../configs/cognito';
+Amplify.configure(CognitoConfig);
+
 const FormItem = Form.Item;
 
 class LoginForm extends React.Component {
 
-  checkUsername = (rule, value, callback) => {
-    const form = this.props.form;
-    // form.setFields({
-    //   username: {
-    //     value: ""
-    //   }
-    // });
-    // form.setFieldsValue("pedro, manada");
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      username:'',
+      password:'',
+    }
+  }
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        const { username, password } = this.state
+        Auth.signIn(username, password).then(()=>{
+          Router.push('/')
+          // this.setState({
+          //   message: 'Successful'
+          // })
+        }).catch((response)=>{
+          if (response.message){
+            console.log(response.message)
+            // this.setState({
+            //   message: response.message
+            // })
+          }
+        })
+
       }
     });
   };
+
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  componentDidMount() {
+    Auth.currentAuthenticatedUser()
+      .then(()=>{
+        Router.push('/')
+      }).catch(()=>{
+        // do nothing
+      })
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -37,6 +68,7 @@ class LoginForm extends React.Component {
                     minHeight: 360,
                     display: 'flex',
                     justifyContent: 'center' }}>
+                    {/* { console.log(process.env.COGNITO_IDENTITY_POOL_ID) } */}
 
         <Form onSubmit={this.handleSubmit} style={{ maxWidth: '300px'}}>
           <FormItem>
@@ -49,6 +81,8 @@ class LoginForm extends React.Component {
               <Input
                 prefix={<Icon type="user" style={{ fontSize: 13 }} />}
                 placeholder="Username"
+                name='username'
+                onChange={ this.handleChange.bind(this) }
               />
             )}
           </FormItem>
@@ -61,6 +95,8 @@ class LoginForm extends React.Component {
                 prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
                 type="password"
                 placeholder="Password"
+                name='password'
+                onChange={ this.handleChange.bind(this) }
               />
             )}
           </FormItem>

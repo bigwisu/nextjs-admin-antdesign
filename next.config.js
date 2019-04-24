@@ -1,4 +1,7 @@
 /* eslint-disable */
+const { parsed: localEnv } = require('dotenv').config()
+const webpack = require('webpack');
+
 const withLess = require('@zeit/next-less')
 const lessToJS = require('less-vars-to-js')
 const fs = require('fs')
@@ -15,6 +18,17 @@ if (typeof require !== 'undefined') {
 }
 
 module.exports = withLess({
+  webpack(config) {
+    config.plugins.push(new webpack.EnvironmentPlugin(localEnv))
+    config.node = {fs: "empty"};
+    config.plugins = config.plugins || []
+
+    config.plugins = [
+        ...config.plugins,
+    ]
+
+    return config
+  },
   options: {
     dist: '.next'
   },
@@ -26,5 +40,11 @@ module.exports = withLess({
     return {
       '/': { page: '/' }
     }
+  },
+  env: {
+    COGNITO_IDENTITY_POOL_ID: process.env.COGNITO_IDENTITY_POOL_ID,
+    COGNITO_REGION: process.env.COGNITO_REGION,
+    COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID,
+    COGNITO_WEBCLIENT_POOL_ID: process.env.COGNITO_WEBCLIENT_POOL_ID
   }
 })
