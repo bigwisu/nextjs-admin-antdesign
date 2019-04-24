@@ -6,6 +6,7 @@ import {
   Checkbox
 } from 'antd';
 
+import Head from 'next/head';
 import Router from 'next/router';
 
 import Amplify, { Auth } from 'aws-amplify';
@@ -61,61 +62,66 @@ class LoginForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <div style={{ padding: 250,
-                    background: '#fff',
-                    minHeight: 360,
-                    display: 'flex',
-                    justifyContent: 'center' }}>
-                    {/* { console.log(process.env.COGNITO_IDENTITY_POOL_ID) } */}
+      <React.Fragment>
+        <Head>
+          <title>Welcome!</title>
+        </Head>
+        <div style={{ padding: 250,
+                      background: '#fff',
+                      minHeight: 360,
+                      display: 'flex',
+                      justifyContent: 'center' }}>
 
-        <Form onSubmit={this.handleSubmit} style={{ maxWidth: '300px'}}>
-          <FormItem>
-            {getFieldDecorator('userName', {
-              rules: [
-                { required: true, message: 'Please input your username!' },
-                { validator: this.checkUsername }
-              ]
-            })(
-              <Input
-                prefix={<Icon type="user" style={{ fontSize: 13 }} />}
-                placeholder="Username"
-                name='username'
-                onChange={ this.handleChange.bind(this) }
-              />
-            )}
-          </FormItem>
+          <Form style={{ maxWidth: '300px'}}>
+            <FormItem>
+              {getFieldDecorator('userName', {
+                rules: [
+                  { required: true, message: 'Please input your username!' },
+                  { validator: this.checkUsername }
+                ]
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+                  placeholder="Username"
+                  name='username'
+                  onChange={ this.handleChange.bind(this) }
+                />
+              )}
+            </FormItem>
 
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }]
-            })(
-              <Input
-                prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
-                type="password"
-                placeholder="Password"
-                name='password'
-                onChange={ this.handleChange.bind(this) }
-              />
-            )}
-          </FormItem>
+            <FormItem>
+              {getFieldDecorator('password', {
+                rules: [{ required: true, message: 'Please input your Password!' }]
+              })(
+                <Input
+                  prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+                  type="password"
+                  placeholder="Password"
+                  name='password'
+                  onChange={ this.handleChange.bind(this) }
+                />
+              )}
+            </FormItem>
 
-          <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: false
-            })(<Checkbox>Remember me</Checkbox>)}
-            <a href="" style={{float: 'right'}}>
-              Forgot password
-            </a>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{width: '100%'}}>
-              Log in
-            </Button>
-          </FormItem>
-        </Form>
-      </div>
+            <FormItem>
+              {getFieldDecorator('remember', {
+                valuePropName: 'checked',
+                initialValue: false
+              })(<Checkbox>Remember me</Checkbox>)}
+              <a href="" style={{float: 'right'}}>
+                Forgot password
+              </a>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{width: '100%'}}
+                onClick={this.handleSubmit} >
+                Log in
+              </Button>
+            </FormItem>
+          </Form>
+        </div>
+      </React.Fragment>
     );
   }
 }
