@@ -10,6 +10,7 @@ import Router from 'next/router';
 
 import Amplify, { Auth } from 'aws-amplify';
 import CognitoConfig from '../configs/cognito';
+
 Amplify.configure(CognitoConfig);
 
 const FormItem = Form.Item;
@@ -31,9 +32,6 @@ class LoginForm extends React.Component {
         const { username, password } = this.state
         Auth.signIn(username, password).then(()=>{
           Router.push('/')
-          // this.setState({
-          //   message: 'Successful'
-          // })
         }).catch((response)=>{
           if (response.message){
             console.log(response.message)

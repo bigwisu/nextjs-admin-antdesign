@@ -1,11 +1,10 @@
 /* eslint-disable */
-const { parsed: localEnv } = require('dotenv').config()
-const webpack = require('webpack');
-
 const withLess = require('@zeit/next-less')
 const lessToJS = require('less-vars-to-js')
 const fs = require('fs')
 const path = require('path')
+
+const Dotenv = require('dotenv-webpack')
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
@@ -18,13 +17,16 @@ if (typeof require !== 'undefined') {
 }
 
 module.exports = withLess({
-  webpack(config) {
-    config.plugins.push(new webpack.EnvironmentPlugin(localEnv))
-    config.node = {fs: "empty"};
+  webpack: config => {
     config.plugins = config.plugins || []
 
     config.plugins = [
-        ...config.plugins,
+      ...config.plugins,
+
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
     ]
 
     return config
@@ -40,11 +42,5 @@ module.exports = withLess({
     return {
       '/': { page: '/' }
     }
-  },
-  env: {
-    COGNITO_IDENTITY_POOL_ID: process.env.COGNITO_IDENTITY_POOL_ID,
-    COGNITO_REGION: process.env.COGNITO_REGION,
-    COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID,
-    COGNITO_WEBCLIENT_POOL_ID: process.env.COGNITO_WEBCLIENT_POOL_ID
   }
 })
