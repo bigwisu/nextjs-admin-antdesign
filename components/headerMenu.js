@@ -14,8 +14,13 @@ class HeaderMenu extends React.Component {
     username: 'Username'
   };
 
-  componentDidMount = () => {
-    console.log('USERMENU LOADED')
+  componentWillMount = () => {
+    Auth.currentAuthenticatedUser()
+      .then(()=>{
+        // do nothing
+      }).catch(()=>{
+        Router.push('/login')
+      })
   }
 
   handleLogOut = () => {
