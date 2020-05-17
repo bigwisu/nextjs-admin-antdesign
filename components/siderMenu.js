@@ -1,9 +1,22 @@
 import {
-    Layout, Menu, Icon,
+    Layout, 
+    Menu
   } from 'antd';
 
-import AppLogo from '../assets/appLogo'
+import {
+    PieChartOutlined,
+    DesktopOutlined,
+    AntDesignOutlined,
+    FileOutlined,
+    TeamOutlined
+} from '@ant-design/icons';
+
+import Icon from '@ant-design/icons';
+
+import AppLogo from '../assets/appLogo';
 import Router from 'next/router';
+
+const AppLogoIcon = props => <Icon component={AppLogo} {...props} />;
 
 const {
   Sider,
@@ -37,7 +50,7 @@ class SiderMenu extends React.Component {
         onCollapse={this.onCollapse}
       >
         <div style={{margin: '19px auto 19px', width: 142}}>
-          <AppLogo />
+          <AppLogoIcon />
         </div>
         <Menu theme="dark"
           defaultSelectedKeys={['/']}
@@ -45,20 +58,20 @@ class SiderMenu extends React.Component {
           mode="inline"
         >
           <Menu.Item key="/" onClick={() => Router.push('/')}>
-            <Icon type="pie-chart" />
+            <PieChartOutlined />
             <span>Dashboard</span>
           </Menu.Item>
           <Menu.Item key="/about" onClick={() => Router.push('/about')}>
-            <Icon type="desktop" />
+            <DesktopOutlined />
             <span>About</span>
           </Menu.Item>
           <Menu.Item key="/sample" onClick={() => Router.push('/sample')}>
-            <Icon type="ant-design" />
+            <AntDesignOutlined />
             <span>Sample</span>
           </Menu.Item>
           <SubMenu
             key="sub1"
-            title={<span><Icon type="user" /><span>User</span></span>}
+            title={<span><TeamOutlined /><span>User</span></span>}
           >
             <Menu.Item key="3">Tom</Menu.Item>
             <Menu.Item key="4">Bill</Menu.Item>
@@ -66,13 +79,13 @@ class SiderMenu extends React.Component {
           </SubMenu>
           <SubMenu
             key="sub2"
-            title={<span><Icon type="team" /><span>Team</span></span>}
+            title={<span><TeamOutlined /><span>Team</span></span>}
           >
             <Menu.Item key="6">Team 1</Menu.Item>
             <Menu.Item key="8">Team 2</Menu.Item>
           </SubMenu>
           <Menu.Item key="9">
-            <Icon type="file" />
+            <FileOutlined />
             <span>File</span>
           </Menu.Item>
         </Menu>

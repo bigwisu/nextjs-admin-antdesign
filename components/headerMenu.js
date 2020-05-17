@@ -2,10 +2,10 @@ import {
   Layout, Menu, Icon
 } from 'antd';
 
-import Amplify, { Auth } from 'aws-amplify';
-import CognitoConfig from '../configs/cognito';
+// import Amplify, { Auth } from 'aws-amplify';
+// import CognitoConfig from '../configs/cognito';
 
-Amplify.configure(CognitoConfig);
+// Amplify.configure(CognitoConfig);
 
 import Router from 'next/router';
 
@@ -14,14 +14,14 @@ class HeaderMenu extends React.Component {
     username: 'Username'
   };
 
-  componentWillMount = () => {
-    Auth.currentAuthenticatedUser()
-      .then(()=>{
-        // do nothing
-      }).catch(()=>{
-        Router.push('/login')
-      })
-  }
+  // componentWillMount = () => {
+  //   Auth.currentAuthenticatedUser()
+  //     .then(()=>{
+  //       // do nothing
+  //     }).catch(()=>{
+  //       Router.push('/login')
+  //     })
+  // }
 
   handleLogOut = () => {
     Auth.signOut()
